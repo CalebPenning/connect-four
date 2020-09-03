@@ -33,7 +33,7 @@ const makeHtmlBoard = () => {
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
-  for (var x = 0; x < WIDTH; x++) {
+  for (let x = 0; x < WIDTH; x++) {
     let headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
@@ -41,9 +41,9 @@ const makeHtmlBoard = () => {
   htmlBoard.append(top);
 
   // TODO: add comment for this code
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
-    for (var x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
@@ -77,9 +77,9 @@ const placeInTable = (y, x) => {
 
 /** endGame: announce game end */
 
-function endGame(msg) {
+const endGame = (msg) => {
   // TODO: pop up alert message
-  alert(msg)
+  alert(msg);
   placement = false;
   reset.style.visibility = "visible";
   reset.addEventListener('click', () => {
@@ -109,7 +109,7 @@ function handleClick(evt) {
   }
 
   // check for tie
-  if (board.every(row => row.every(spot => spot))) {
+  if (board.every(col => col.every(piece => piece))) {
     return endGame('Tie game!');
   }
 
@@ -139,7 +139,7 @@ function checkForWin() {
     );
   }
 
- // Loops to determine if a win has been reached
+ // Loops over each spot in every column and row
 
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
@@ -157,6 +157,7 @@ function checkForWin() {
       // diagDL does this by incrementing the y position, but decrementing the x, which would mean it's going left
       let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
+      // Check all possible winning positions
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
