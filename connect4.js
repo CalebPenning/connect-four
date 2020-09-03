@@ -83,8 +83,7 @@ function endGame(msg) {
   placement = false;
   reset.style.visibility = "visible";
   reset.addEventListener('click', () => {
-    Location.assign('')
-    Location.reload();
+    window.location.href = "https://calebpenning.github.io/connect-four/";
   });
 }
 
